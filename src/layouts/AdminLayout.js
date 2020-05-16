@@ -6,6 +6,7 @@ import Logs from '../pages/Logs';
 import LogsServer from '../pages/LogsServer';
 import SettingList from '../pages/setting/SettingList';
 import UserList from '../pages/user/UserList';
+import UrnSearch from '../pages/urn/UrnSearch';
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -27,9 +28,10 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import ChatIcon from '@material-ui/icons/Chat';
 import InfoIcon from '@material-ui/icons/Info';
+*/
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleIcon from '@material-ui/icons/People';
-*/
+
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ListIcon from '@material-ui/icons/List';
@@ -135,7 +137,7 @@ export default function AdminLayout() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap style={{flexGrow: 1}}>CID</Typography>
-                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated.name}</Typography>
+                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated ? userAuthenticated.name : ''}</Typography>
                     <Button color="primary" startIcon={<ExitToAppIcon />}>Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -172,15 +174,15 @@ export default function AdminLayout() {
                         <ListItemIcon style={{color: '#ccc'}}><InfoIcon /></ListItemIcon>
                         <ListItemText primary='Pending Approval' />
                     </ListItem>
-                    <ListItem button component={Link} to={`${path}`}>
+                    */}
+                    <ListItem button component={Link} to={`${path}/urn/search`}>
                         <ListItemIcon style={{color: '#ccc'}}><SearchIcon /></ListItemIcon>
                         <ListItemText primary='Search' />
-                    </ListItem>
+                    </ListItem>                     
                     <ListItem button component={Link} to={`${path}/user/list`}>
                         <ListItemIcon style={{color: '#ccc'}}><PeopleIcon /></ListItemIcon>
                         <ListItemText primary='User Agency' />
-                    </ListItem>
-                    */}
+                    </ListItem>                   
                     <ListItem button component={Link} to={`${path}/setting/list`}>
                         <ListItemIcon style={{color: '#ccc'}}><SettingsIcon /></ListItemIcon>
                         <ListItemText primary='Settings' />
@@ -207,6 +209,9 @@ export default function AdminLayout() {
                     </Route>
                     <Route exact path={`${path}/user/list`}>
                         <UserList />
+                    </Route>
+                    <Route exact path={`${path}/urn/search`}>
+                        <UrnSearch />
                     </Route>
                     <Route exact path={`${path}/setting/list`}>
                         <SettingList />

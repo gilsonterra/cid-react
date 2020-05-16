@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import Request from '../helpers/Request';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Badge from '@material-ui/core/Badge';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Request from '../helpers/Request';
+import {
+    Table,
+    TableHead,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    TablePagination,
+    TableSortLabel,
+    Toolbar,
+    Typography,
+    Paper,
+    Badge,
+    LinearProgress
+} from '@material-ui/core';
 
 function EnhancedTableHead(props) {
     const { classes, order, orderBy, onRequestSort, columns } = props;
@@ -98,11 +100,11 @@ const EnhancedTableToolbar = (props) => {
                     {numSelected} selected
                 </Typography>
             ) : (
-                <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                    {title} <Badge badgeContent={rowsCount} style={{marginLeft: 15}} color="primary"></Badge>
-                </Typography>                
-    )
-}
+                    <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+                        {title} <Badge badgeContent={rowsCount} style={{ marginLeft: 15 }} color="primary"></Badge>
+                    </Typography>
+                )
+            }
         </Toolbar >
     );
 };
@@ -137,9 +139,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const Datatable = (props) => {
-    const { columns, title, uri, method, pagination, onLoading } = props;
+const Datatable = ({ columns, title, uri, method, pagination, onLoading, filters }) => {    
     const classes = useStyles();
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('calories');
@@ -152,16 +152,16 @@ const Datatable = (props) => {
 
     const handleRequestData = (paginationParams) => {
         setLoading(true);
-        onLoading(true);
+        onLoading(true);        
         Request({
             method: method,
             url: uri,
             data: {
-                filters: {},
+                filters: filters,
                 pagination: paginationParams
             }
         }).then(({ data }) => {
-            if(pagination){
+            if (pagination) {
                 setRows(data.data.items);
                 setRowsNumber(data.data.rowsNumber);
                 setRowsPerPage(data.data.rowsPerPage);
@@ -169,15 +169,15 @@ const Datatable = (props) => {
                 setOrder(data.data.descending ? 'desc' : 'asc');
                 setOrderBy(data.data.sortBy);
             }
-            else{
+            else {
                 setRows(data.data);
                 setRowsNumber(data.data.length);
             }
-            
+
         }).catch((error) => {
             console.log(error);
         })
-            .finally(() => { 
+            .finally(() => {
                 setLoading(false);
                 onLoading(false);
             });
@@ -191,7 +191,8 @@ const Datatable = (props) => {
             rowsNumber: rowsNumber,
             rowsPerPage: rowsPerPage
         });
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filters]);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -287,7 +288,7 @@ const Datatable = (props) => {
                         />
                         <TableBody>
                             {rows.map((row, index) => {
-                                const isItemSelected = isSelected(row.id);                                
+                                const isItemSelected = isSelected(row.id);
 
                                 return (
                                     <TableRow
@@ -312,7 +313,7 @@ const Datatable = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                { pagination 
+                {pagination
                     ? <TablePagination
                         rowsPerPageOptions={[5, 10, 25, 50]}
                         component="div"
@@ -322,11 +323,11 @@ const Datatable = (props) => {
                         onChangePage={handleChangePage}
                         onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
-                    : <Typography style={{textAlign: 'center'}} color="inherit" variant="h6" component="div">
+                    : <Typography style={{ textAlign: 'center' }} color="inherit" variant="h6" component="div">
                         {rowsNumber} registers.
                     </Typography>
                 }
-                
+
             </Paper>
         </div>
     );
@@ -335,7 +336,8 @@ const Datatable = (props) => {
 Datatable.defaultProps = {
     method: 'POST',
     pagination: true,
-    onLoading: () => {}
+    filters: {},
+    onLoading: () => { }
 };
 
 Datatable.propTypes = {
@@ -344,7 +346,8 @@ Datatable.propTypes = {
     columns: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     uri: PropTypes.string.isRequired,
-    onLoading: PropTypes.func
+    onLoading: PropTypes.func,
+    filters: PropTypes.object,
 };
 
 export default Datatable;
