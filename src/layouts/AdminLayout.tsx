@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminLayout() {
     let { path } = useRouteMatch();
-    const userAuthenticated = getUser();
+    const userAuthenticated = ''; //getUser();
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -137,7 +137,7 @@ export default function AdminLayout() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap style={{flexGrow: 1}}>CID</Typography>
-                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated ? userAuthenticated.name : ''}</Typography>
+                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated}</Typography>
                     <Button color="primary" startIcon={<ExitToAppIcon />}>Logout</Button>
                 </Toolbar>
             </AppBar>

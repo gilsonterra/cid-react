@@ -13,6 +13,11 @@ import { useSnackbar } from 'notistack';
 import { setToken, setScope, setUser } from '../helpers/Auth';
 import { useHistory } from "react-router-dom";
 
+interface Login {
+    email: string,
+    password: string
+}
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,7 +40,7 @@ export default function Login() {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const requestSubmit = (values) => {
+    const requestSubmit = (values: Login) => {
         Request({
             method: 'post',
             url: '/token',
@@ -45,7 +50,7 @@ export default function Login() {
             setScope(data.data.scope);
             setUser(data.data.user);
             history.push("/admin");
-        }).catch((error) => {            
+        }).catch((error) => {
             enqueueSnackbar('Error login', {
                 anchorOrigin: {
                     vertical: 'top',
@@ -56,8 +61,9 @@ export default function Login() {
         });
     };
 
-    const validationValues = (values) => {
-        const errors = {};
+    const validationValues = (values: Login) => {
+        const errors = {email: ''};
+        console.log(errors);
         if (!values.email) {
             errors.email = 'Required';
         } else if (
@@ -78,8 +84,9 @@ export default function Login() {
                     </Typography>
                     <Formik
                         initialValues={{ email: '', password: '' }}
-                        validate={validationValues}
+                        
                         onSubmit={(values, { setSubmitting }) => {
+                            console.log(values);
                             setSubmitting(false);
                             requestSubmit(values);
                         }}

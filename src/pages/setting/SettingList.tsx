@@ -1,30 +1,30 @@
 import React from 'react';
-import Datatable from '../../components/Datatable';
+import Datatable from '../../components/Datatable/Datatable';
 
 function SettingsList() {
-    const handleLoading = (loading) => {
-        console.log(loading);
+    const handleLoading = (loading:boolean) => {        
+        return loading;
     };
 
     const columnsRecord = [
         {
             id: 'id',
-            align: 'center',            
+            align: 'center' as const,            
             label: 'Id'
         },
         {
             id: 'code',
-            align: 'left',
+            align: 'left' as const,
             label: 'code'            
         },
         {
             id: 'name',
-            align: 'left',            
+            align: 'left' as const,            
             label: 'Name'            
         },
         {
             id: 'order',
-            align: 'left',            
+            align: 'left' as const,            
             label: 'Order'            
         }
     ];

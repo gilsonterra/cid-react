@@ -1,5 +1,5 @@
 import React from 'react';
-import Datatable from '../../components/Datatable';
+import Datatable from '../../components/Datatable/Datatable';
 import RecordStatus from '../../components/RecordStatus';
 import { format, parseJSON } from 'date-fns'
 
@@ -7,27 +7,28 @@ function UrnTable() {
     const columnsRecord = [
         {
             id: 'id',
+            align: 'center' as const,
             label: 'Urn'
         },
         {
             id: 'departament',
             label: 'Departament',
-            format: (val, row) => (val ? val.name : null),
+            format: (val: any, row: any) => (val ? val.name : null),
         },
         {
             id: 'information_source',
             label: 'Information Source',
-            format: (val, row) => (val ? val.name : null),
+            format: (val: any, row: any) => (val ? val.name : null),
         },
         {
             id: 'status',
             label: 'Status',
-            format: (val, row) => (<RecordStatus status={val} />),
+            format: (val: {code: '', name: ''}, row: any) => (<RecordStatus name={val.name} code={val.code} />),
         },
         {
-            id: 'created_at',            
+            id: 'created_at',
             label: 'Created At',
-            format: (val, row) => {
+            format: (val: string, row: any) => {
                 let objDate = parseJSON(val);
                 return format(objDate, 'dd/MM/yyyy H:s:ii')
             }

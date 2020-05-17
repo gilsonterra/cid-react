@@ -1,5 +1,5 @@
 import React from 'react';
-import Datatable from '../../components/Datatable';
+import Datatable from '../../components/Datatable/Datatable';
 import { format, parseJSON } from 'date-fns'
 import Chip from '@material-ui/core/Chip';
 
@@ -16,7 +16,7 @@ function Dash() {
         {
             id: 'created_at',            
             label: 'Created At',
-            format: (val, row) => {
+            format: (val:string, row:any) => {
                 let objDate = parseJSON(val);
                 return format(objDate, 'dd/MM/yyyy H:s:ii')
             }
@@ -24,7 +24,7 @@ function Dash() {
         {
             id: 'updated_at',            
             label: 'Updated At',
-            format: (val, row) => {
+            format: (val:string, row:any) => {
                 let objDate = parseJSON(val);
                 return format(objDate, 'dd/MM/yyyy H:s:ii')
             }
@@ -32,7 +32,7 @@ function Dash() {
         {
             id: 'roles',            
             label: 'Roles',
-            format: (roles, row) => (
+            format: (roles:{id: '', name: ''}[], row:any) => (
                 roles.map(role => (
                     <Chip key={role.id} color="primary" label={role.name} />
                 ))

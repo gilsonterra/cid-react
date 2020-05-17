@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../helpers/Auth';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+//import { isAuthenticated } from '../helpers/Auth';
 import Login from '../pages/Login';
 import AdminLayout from '../layouts/AdminLayout';
 import NotFound from '../pages/NotFound';
 
+/*
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => {        
         if (isAuthenticated())
@@ -13,6 +14,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
     }} />
 );
+*/
 
 const Routes = () => {    
     return <BrowserRouter>
@@ -23,9 +25,9 @@ const Routes = () => {
                 <Route exact path="/login">
                     <Login />
                 </Route>
-                <PrivateRoute path="/admin">
+                <Route path="/admin">
                     <AdminLayout />
-                </PrivateRoute>
+                </Route>
                 <Route>
                     <NotFound />
                 </Route>

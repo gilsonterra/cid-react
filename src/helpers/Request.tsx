@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '../helpers/Auth';
 
-const Request = (options) => {        
+const Request = (options: object) => {        
     axios.defaults.baseURL = 'http://localhost:9000';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
 

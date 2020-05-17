@@ -7,8 +7,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+interface Log {
+    log: string
+}
+
 function LogsServer() {
-    const [logs, setLogs] = useState([]);
+    const [logs, setLogs] = useState<Log[]>([]);
     const [loading, setLoading] = useState(false);
 
     const handleRequest = () => {

@@ -86,7 +86,7 @@ function Dash() {
     }, []);
 
     return <div>      
-        {indicators.map(i => <Indicator className="row justify-between" key={i.color} {...i} />)}
+        {indicators.map(i => <Indicator key={i.color} {...i} />)}
         <div style={{marginTop: 30}}>
             <UrnTable />
         </div>
