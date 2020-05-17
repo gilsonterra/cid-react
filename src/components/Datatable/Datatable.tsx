@@ -48,11 +48,12 @@ interface DatableProps {
     onLoading(status: boolean): boolean,
     pagination: boolean,    
     method: string,    
-    filters?: { [key: string]: any }
+    filters?: { [key: string]: any },
+    headerRight?: JSX.Element
 }
 
 const Datatable = (props: DatableProps) => {
-    const { columns, title, uri, method, pagination, onLoading, filters } = props;
+    const { columns, title, uri, method, pagination, onLoading, filters, headerRight} = props;
     const classes = useStyles();
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
     const [orderBy, setOrderBy] = useState('calories');    
@@ -152,7 +153,7 @@ const Datatable = (props: DatableProps) => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar rowsCount={rowsNumber} title={title} />
+                <EnhancedTableToolbar rowsCount={rowsNumber} title={title} headerRight={headerRight} />
                 {loading ? <LinearProgress /> : null}
                 <TableContainer>
                     <Table

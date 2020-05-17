@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
 
 import Dash from '../pages/Dash';
@@ -6,8 +6,8 @@ import Logs from '../pages/Logs';
 import LogsServer from '../pages/LogsServer';
 import SettingList from '../pages/setting/SettingList';
 import UserList from '../pages/user/UserList';
+import UserForm from '../pages/user/UserForm';
 import UrnSearch from '../pages/urn/UrnSearch';
-
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -105,10 +105,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminLayout() {
     let { path } = useRouteMatch();
-    const userAuthenticated = ''; //getUser();
+    const userAuthenticated = getUser();
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
+
+    console.log(userAuthenticated);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -137,7 +139,7 @@ export default function AdminLayout() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap style={{flexGrow: 1}}>CID</Typography>
-                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated}</Typography>
+                    <Typography variant="subtitle1" noWrap style={{marginRight: 10}}>{userAuthenticated?.name}</Typography>
                     <Button color="primary" startIcon={<ExitToAppIcon />}>Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -209,6 +211,9 @@ export default function AdminLayout() {
                     </Route>
                     <Route exact path={`${path}/user/list`}>
                         <UserList />
+                    </Route>
+                    <Route exact path={`${path}/user/form`}>
+                        <UserForm />
                     </Route>
                     <Route exact path={`${path}/urn/search`}>
                         <UrnSearch />

@@ -31,11 +31,12 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 interface EnhancedTableToolbarProps {
     title: string,
-    rowsCount: number
+    rowsCount: number,
+    headerRight?: JSX.Element
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const { title, rowsCount } = props;
+    const { title, rowsCount, headerRight } = props;
     const classes = useToolbarStyles();
 
     return (
@@ -43,6 +44,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
                 {title} <Badge badgeContent={rowsCount} style={{ marginLeft: 15 }} color="primary"></Badge>
             </Typography>
+            {headerRight}
         </Toolbar >
     );
 };

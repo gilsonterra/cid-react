@@ -1,11 +1,9 @@
+import UserInterface from '../interfaces/UserInterface';
+
 const SCOPE = 'scope';
 const TOKEN = 'token';
 const USER = 'user';
 const LOCALE = 'locale';
-
-interface UserAuthenticated {
-    name: string
-}
 
 
 const deleteItem = (name: string) => {
@@ -32,8 +30,8 @@ export const setUser = (user: any) => {
     setItem(USER, user);
 }
 
-export const getUser = () => {
-    return getItem(USER);
+export const getUser = (): UserInterface => {
+    return getItem(USER) as UserInterface;
 }
 
 export const setToken = (token: string) => {
