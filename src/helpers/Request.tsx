@@ -29,6 +29,7 @@ const Request = (options: object) => {
                 window.location.replace('/login');
                 break;
             default:
+                console.warn('error', error); 
                 return Promise.reject(error);
         }
     });

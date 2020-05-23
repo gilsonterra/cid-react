@@ -13,11 +13,13 @@ function UrnTable() {
         {
             id: 'departament',
             label: 'Departament',
+            hidden: ['xs' as const, 'sm' as const],
             format: (val: any, row: any) => (val ? val.name : null),
         },
         {
             id: 'information_source',
             label: 'Information Source',
+            hidden: ['xs' as const, 'sm' as const],
             format: (val: any, row: any) => (val ? val.name : null),
         },
         {
@@ -28,6 +30,7 @@ function UrnTable() {
         {
             id: 'created_at',
             label: 'Created At',
+            hidden: ['xs' as const, 'sm' as const],
             format: (val: string, row: any) => {
                 let objDate = parseJSON(val);
                 return format(objDate, 'dd/MM/yyyy H:s:ii')

@@ -1,8 +1,12 @@
 import React from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import { 
+    List,
+    ListItem,
+    ListItemText,
+    ListItemAvatar,
+    Typography,    
+    SvgIcon
+} from '@material-ui/core';
 
 interface IndicatorProps {
     total: number,
@@ -14,17 +18,23 @@ interface IndicatorProps {
 function Indicator(props: IndicatorProps) {
     const { total, color, text, icon } = props;
     const paperStyle = {
-        backgroundColor: color,
-        margin: 2,
-        color: '#fff',
-        display: 'inline-block',
+        backgroundColor: color,        
+        color: '#fff',    
+        fontSize: '18px',   
         padding: 0,
+        width: '100%'
     };
 
+    const IconLarge = () => {        
+        return <SvgIcon style={{fontSize: '2.5em'}} children={icon} />;
+    }
+
     return <List style={paperStyle}>
-        <ListItem button>
-            <ListItemAvatar>{icon}</ListItemAvatar>
-            <ListItemText primary={total} secondary={text} />
+        <ListItem button style={{height: 100}}>            
+            <ListItemText 
+                primary={<Typography variant="h4">{total}</Typography>} 
+                secondary={<Typography variant="subtitle1">{text}</Typography>} />
+            <ListItemAvatar><IconLarge /></ListItemAvatar>
         </ListItem>
     </List>
 }

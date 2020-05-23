@@ -4,14 +4,17 @@ import {
     TableSortLabel,    
     TableCell,    
     TableRow,
+    Hidden
 } from '@material-ui/core';
 
 export type AlignType = "inherit" | "center" | "left"  | "right" | "justify" | undefined;
+export type HiddenType = "xs" | "sm" | "md" | "lg" | "xl" | ("xs" | "sm" | "md" | "lg" | "xl")[] | undefined;
 
 export interface EnhancedTableHeadColumnsInterface {
     id: string,
     align?: AlignType,
     label: string,
+    hidden?: HiddenType,
     format?(val: any, row: any): any
 }
 
@@ -33,26 +36,28 @@ export const EnhancedTableHead = (props: EnhancedTableHeadProps) => {
     return (
         <TableHead>
             <TableRow>
-                {columns.map((columns) => (
+                {columns.map((col) => (   
+                    <Hidden only={col.hidden}>              
                     <TableCell
-                        key={columns.id}
-                        align={columns.align}
+                        key={col.id}
+                        align={col.align}
                         padding='default'
-                        sortDirection={orderBy === columns.id ? order : false}
+                        sortDirection={orderBy === col.id ? order : false}
                     >
                         <TableSortLabel
-                            active={orderBy === columns.id}
-                            direction={orderBy === columns.id ? order : 'asc'}
-                            onClick={createSortHandler(columns.id)}
+                            active={orderBy === col.id}
+                            direction={orderBy === col.id ? order : 'asc'}
+                            onClick={createSortHandler(col.id)}
                         >
-                            {columns.label}
-                            {orderBy === columns.id ? (
+                            {col.label}
+                            {orderBy === col.id ? (
                                 <span className={classes.visuallyHidden}>
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                 </span>
                             ) : null}
                         </TableSortLabel>
-                    </TableCell>
+                    </TableCell>    
+                    </Hidden>                   
                 ))}
             </TableRow>
         </TableHead>

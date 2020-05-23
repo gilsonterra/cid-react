@@ -7,5 +7,6 @@ export default interface UserInterface {
     is_active: string, 
     created_at: string, 
     updated_at: string, 
-    roles: RoleInterface[]
+    password?: string | undefined,
+    roles: RoleInterface[] | []
 }

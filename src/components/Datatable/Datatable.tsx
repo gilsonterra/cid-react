@@ -3,7 +3,6 @@ import Request from '../../helpers/Request';
 import { EnhancedTableHead, EnhancedTableHeadColumnsInterface } from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import { makeStyles } from '@material-ui/core/styles';
-
 import {
     Table,
     TableBody,
@@ -13,7 +12,8 @@ import {
     TablePagination,
     Typography,
     Paper,
-    LinearProgress
+    LinearProgress,
+    Hidden
 } from '@material-ui/core';
 
 
@@ -179,9 +179,11 @@ const Datatable = (props: DatableProps) => {
                                         key={index}
                                     >
                                         {columns.map((column) => (
+                                            <Hidden only={column.hidden}>
                                             <TableCell align={column.align} key={column.id}>{
                                                 row[column.id] && column.format ? column.format(row[column.id], row) : row[column.id]
                                             }</TableCell>
+                                            </Hidden>
                                         ))}
                                     </TableRow>
                                 );

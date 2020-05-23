@@ -1,11 +1,16 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+
+import { 
+    Button,
+    TextField,
+    Card,
+    CardContent,
+    Typography,
+    Container,
+    Box,
+    Grid
+} from '@material-ui/core';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from 'formik';
 import Request from '../helpers/Request';
@@ -18,14 +23,7 @@ interface Login {
     password: string
 }
 
-
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
@@ -63,7 +61,6 @@ export default function Login() {
 
     const validationValues = (values: Login) => {
         const errors = {email: ''};
-        console.log(errors);
         if (!values.email) {
             errors.email = 'Required';
         } else if (
@@ -76,8 +73,8 @@ export default function Login() {
 
 
     return (
-        <Container component="main" maxWidth="xs">
-            <Card className={classes.paper}>
+        <Box display="flex" height="100vh" justifyContent="center" alignItems="center">
+            <Card style={{width: 500, height: 280}}>
                 <CardContent>
                     <Typography component="h1" variant="h5">
                         CID - Customs Intelligence Database
@@ -100,7 +97,7 @@ export default function Login() {
                             handleBlur,
                             isSubmitting,
                         }) => (
-                                <form onSubmit={handleSubmit} noValidate>
+                                <form onSubmit={handleSubmit} noValidate>                                     
                                     <TextField
                                         variant="filled"
                                         margin="normal"
@@ -115,7 +112,7 @@ export default function Login() {
                                         defaultValue={values.email}
                                         helperText={errors.email && touched.email && errors.email}
                                         autoFocus
-                                    />
+                                    />                                                                                                                                                               
                                     <TextField
                                         variant="filled"
                                         margin="normal"
@@ -142,6 +139,6 @@ export default function Login() {
                     </Formik>
                 </CardContent>
             </Card>
-        </Container>
+        </Box>
     );
 }

@@ -43,11 +43,20 @@ const UserList = () => {
                 ))
             )
         },
+        {
+            id: 'id',
+            label: 'actions',
+            format: (val: string, row: any) => (
+                <Button color="primary" component={Link} to={`/admin/user/form/${val}`}>Edit</Button>
+            )
+        },
 
     ];
 
     return (
-        <Datatable headerRight={<Button color="primary" variant="contained" component={Link} to={`/admin/user/form`} startIcon={<PlusIcon />}>New</Button>} title="Users" method="GET" pagination={false} uri="/users" columns={columns} />
+        <Datatable headerRight={
+            <Button color="primary" variant="contained" component={Link} to={`/admin/user/form`} startIcon={<PlusIcon />}>New</Button>
+        } title="Users" method="GET" pagination={false} uri="/users" columns={columns} />
     );
 }
 

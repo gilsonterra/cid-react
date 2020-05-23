@@ -1,16 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Request from '../helpers/Request';
 import constant from '../constants';
 import UrnTable from '../pages/urn/UrnTable';
 import Indicator from '../components/Indicator';
-import UpdateIcon from '@material-ui/icons/Update';
-import EditIcon from '@material-ui/icons/Edit';
-import InfoIcon from '@material-ui/icons/Info';
-import CheckIcon from '@material-ui/icons/Check';
-import SendIcon from '@material-ui/icons/Send';
-import FolderIcon from '@material-ui/icons/Folder';
+import {
+    Folder as FolderIcon,
+    Edit as EditIcon,
+    Info as InfoIcon,
+    Check as CheckIcon,
+    Send as SendIcon,
+    Update as UpdateIcon
+} from '@material-ui/icons';
+import { Grid } from '@material-ui/core';
 
-function Dash() {
+const Dash = () => {
     const [recordCount, setRecordCount] = useState({
         [constant.RECORD_STATUS.INCOMPLETE]: 0,
         [constant.RECORD_STATUS.PENDING_APPROVAL]: 0,
@@ -20,43 +23,43 @@ function Dash() {
     });
 
     const [recordSourceCount, setRecordSourceCount] = useState({
-       processed: 0
+        processed: 0
     });
 
     const indicators = [
         {
             total: recordSourceCount['processed'],
-            color: '#FFA726',            
+            color: '#FFA726',
             text: 'Reports Waiting',
             icon: <UpdateIcon />
         },
         {
             total: recordCount[constant.RECORD_STATUS.INCOMPLETE],
-            color: '#BDBDBD',            
+            color: '#BDBDBD',
             text: 'Incomplete',
             icon: <EditIcon />
         },
         {
             total: recordCount[constant.RECORD_STATUS.PENDING_APPROVAL],
-            color: '#FFA728',            
+            color: '#FFA728',
             text: 'Pending Approval',
             icon: <InfoIcon />
         },
         {
             total: recordCount[constant.RECORD_STATUS.APPROVED],
-            color: '#7AC27E',            
+            color: '#7AC27E',
             text: 'Approved',
             icon: <CheckIcon />
         },
         {
             total: recordCount[constant.RECORD_STATUS.DISSEMINATED],
-            color: '#42A5F5',            
+            color: '#42A5F5',
             text: 'Disseminated',
             icon: <SendIcon />
         },
         {
             total: recordCount[constant.RECORD_STATUS.ARCHIVED],
-            color: '#E57373',            
+            color: '#E57373',
             text: 'Archieved',
             icon: <FolderIcon />
         }
@@ -66,7 +69,7 @@ function Dash() {
         Request({
             method: 'POST',
             url: '/records/count'
-        }).then(({data}) => {            
+        }).then(({ data }) => {
             setRecordCount(data.data);
         })
     };
@@ -75,7 +78,7 @@ function Dash() {
         Request({
             method: 'POST',
             url: '/records-sources/count'
-        }).then(({data}) => {                        
+        }).then(({ data }) => {
             setRecordSourceCount(data.data);
         })
     };
@@ -85,12 +88,18 @@ function Dash() {
         handleRequestRecordSourceCount();
     }, []);
 
-    return <div>      
-        {indicators.map(i => <Indicator key={i.color} {...i} />)}
-        <div style={{marginTop: 30}}>
+    return <>
+        <Grid container spacing={1}>
+            {indicators.map(i => (
+                <Grid item sm={12} md={4} lg={2} key={i.color}>
+                    <Indicator  {...i} />
+                </Grid>
+            ))}
+        </Grid>
+        <div style={{ marginTop: 30 }}>
             <UrnTable />
         </div>
-    </div>
+    </>
 }
 
 export default Dash;

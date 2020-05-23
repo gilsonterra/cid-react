@@ -212,7 +212,7 @@ export default function AdminLayout() {
                     <Route exact path={`${path}/user/list`}>
                         <UserList />
                     </Route>
-                    <Route exact path={`${path}/user/form`}>
+                    <Route exact path={`${path}/user/form/:id?`}>
                         <UserForm />
                     </Route>
                     <Route exact path={`${path}/urn/search`}>
